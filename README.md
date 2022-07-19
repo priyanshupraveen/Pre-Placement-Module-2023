@@ -1,10 +1,10 @@
 # Pre-Placement-Module-2023
 
-- Name: 
-- University Roll No.:
-- Branch:
-- Section:
-- Preferred Programming Language: C++/Java/Python
+- Name: Priyanshu Praveen
+- University Roll No.:1900290400092
+- Branch:mechanical 
+- Section:b
+- Preferred Programming Language: Python
 
 ## Coding Profiles
 - LeetCode: [FIRSTNAME_LASTNAME](https://leetcode.com/priyanshupraveen6/)
