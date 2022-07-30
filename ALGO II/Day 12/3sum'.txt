@@ -1,0 +1,24 @@
+class Solution:
+    def threeSum(self, nums: List[int]) -> List[List[int]]:
+        nums.sort()
+        b=[]
+        fg=1
+        for i in nums: #linear search for one element 
+            j=fg
+            k=len(nums)-1
+            while(j<k): #greedy approach for the two elements 
+                m=i+nums[j]+nums[k]
+                if not(m):
+                    h=[i,nums[j],nums[k]]
+                    if h not in b:
+                        print(i,j,k)
+                        b.append(h)
+                    j+=1
+                    k-=1
+                elif m>0:
+                    k-=1
+                else:
+                    j+=1
+            fg+=1
+        return b
+        

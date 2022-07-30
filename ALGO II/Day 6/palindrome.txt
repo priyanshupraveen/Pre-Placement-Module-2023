@@ -1,0 +1,6 @@
+class Solution:
+    def isPalindrome(self, x: int) -> bool:
+        def rev(x):
+            return int(x != 0) and ((x % 10) * \
+                                    (10**int(math.log(x, 10))) + \
+                                    rev(x // 10))

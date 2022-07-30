@@ -1,0 +1,30 @@
+SELECT 
+    * 
+FROM 
+    Stadium AS T1
+WHERE 
+    T1.people >= 100 
+    AND
+    (
+        # CUR + LAST 2 ROWS = VALID ANSWER
+        (
+         100 <= (SELECT T2.people FROM Stadium AS T2 WHERE T2.id = T1.id - 1) 
+         AND 
+         100 <= (SELECT T2.people FROM Stadium AS T2 WHERE T2.id = T1.id - 2)
+        )
+        # CUR + NEXT 2 ROWS = VALID ANSWER
+        OR 
+        (
+         100 <= (SELECT T2.people FROM Stadium AS T2 WHERE T2.id = T1.id + 1) 
+         AND 
+         100 <= (SELECT T2.people FROM Stadium AS T2 WHERE T2.id = T1.id + 2)
+        )
+        # LAST ROW + CUR + NEXT ROW = VALID ANSWER
+        OR 
+        (
+         100 <= (SELECT T2.people FROM Stadium AS T2 WHERE T2.id = T1.id - 1) 
+         AND 
+         100 <= (SELECT T2.people FROM Stadium AS T2 WHERE T2.id = T1.id + 1)
+        )
+    )
+;

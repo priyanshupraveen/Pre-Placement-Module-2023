@@ -1,0 +1,63 @@
+class Solution:
+    def longestPalindrome(self, s: str) -> str:
+        if len(s)==1:
+            return s
+        def createCenter(s,mid):
+            yield mid
+            for i in range(1,mid+1):
+                yield mid-i
+                if mid+i == len(s):
+                    continue
+                yield mid+i
+        def longestPalin(s,index):
+            i = index-1
+            j = index+1
+            while i>-1 and j<len(s) and s[i]==s[j]:
+                i-=1
+                j+=1
+            return s[i+1:j]
+
+        def longestPalinDual(s,i,j):
+            while i>-1 and j<len(s) and s[i]==s[j]:
+                i-=1
+                j+=1
+            return s[i+1:j]
+
+        mid = len(s)//2
+        longest = ""
+        for center in createCenter(s,mid):
+            l = center
+            r = len(s) - center - 1
+            lp = min(l,r)*2+1
+            pal = longestPalin(s,center)
+            if len(pal)>len(longest):
+                longest = pal
+            if lp<=len(longest):
+                #print(longest)
+                break
+            #print(center,len(longestPalin(s,center)),lp,longest)
+        # DUAL
+        centers = []
+        for i in range(1,mid+1):
+            centers.extend([(mid-i,mid-i+1),(mid+i-1,mid+i)])
+        # DUAL
+        if centers[-1][-1]==len(s):
+            centers.pop()
+        # DUAL
+        longest_dual = ""
+        for center in centers:
+            x,y = center
+            l = x
+            r = len(s) - y - 1
+            lp = min(l,r)*2+2
+            if s[x] == s[y]:
+                pal = longestPalinDual(s,x,y)
+                if len(pal)>len(longest_dual):
+                    longest_dual = pal
+                if lp<=len(longest_dual):
+                    #print(longest_dual)
+                    break
+        if len(longest)>len(longest_dual):
+            return longest
+        else:
+            return longest_dual

@@ -1,0 +1,6 @@
+select customer_number
+from Orders,
+(select max(sum) as sum from
+(select count(order_number) as sum, customer_number as cn from Orders group by customer_number) as temp ) as temp2
+group by customer_number, temp2.sum
+having count(order_number) = temp2.sum

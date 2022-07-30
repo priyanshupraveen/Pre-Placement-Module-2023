@@ -1,0 +1,14 @@
+# Write your MySQL query statement below
+select d.name as Department, e.name as Employee, e.salary
+from department as d
+left join employee as e on d.id = e.departmentId
+where e.salary in (
+    select * from 
+    (
+        select distinct salary 
+        from employee
+        where departmentId = d.id
+        order by salary  desc
+        limit 3
+    ) as top_3_salary
+)

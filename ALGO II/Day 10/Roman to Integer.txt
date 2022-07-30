@@ -1,0 +1,22 @@
+class Solution:
+    def romanToInt(self, s: str) -> int:
+        values = {
+            "I": 1,
+            "V": 5,
+            "X": 10,
+            "L": 50,
+            "C": 100,
+            "D": 500,
+            "M": 1000
+        }  
+        
+        previousValue = 9999
+        total = 0
+        for char in s:
+            currentValue = values[char]
+            if previousValue < currentValue: # will fire if we have to do subtraction
+                total += currentValue - previousValue * 2 # we will have already added on the smaller value so we must subtract it, then add on the previous value subtracted from the current value. Instead of doing two operations (total -= previousValue and then total += currentValue - previousValue), this can be shortened to currentValue - previousValue * 2
+            else:
+                total += currentValue
+            previousValue = currentValue
+        return total
