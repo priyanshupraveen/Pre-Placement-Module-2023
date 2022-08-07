@@ -1,0 +1,13 @@
+class Solution:
+    def insertionSortList(self, head: Optional[ListNode]) -> Optional[ListNode]:
+        sorted_dummy = ListNode(float('-inf'))
+        cur = head
+        while cur:
+            sorted_cur = sorted_dummy
+            while sorted_cur and cur.val > sorted_cur.val:
+                prev = sorted_cur
+                sorted_cur = sorted_cur.next
+            prev.next = cur
+            cur = cur.next
+            prev.next.next = sorted_cur
+        return sorted_dummy.next
